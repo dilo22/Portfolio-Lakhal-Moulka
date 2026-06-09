@@ -5,6 +5,200 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Compétences - Moulka Lakhal</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style-patch.css" />
+  <style>
+    body.simple-page { scroll-snap-type: none; }
+
+    .comp-page { padding: 5.5rem 0 0; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* ── En-tête ── */
+    .comp-hero {
+      padding: 1.5rem 8vw 0;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .comp-hero h2 {
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      line-height: 1;
+      letter-spacing: -.04em;
+      margin: 4px 0 0;
+    }
+    .comp-hero-desc {
+      max-width: 380px;
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.6;
+      align-self: flex-end;
+    }
+
+    /* ── Onglets ── */
+    .comp-tabs {
+      display: flex;
+      margin: 1.5rem 8vw 0;
+      gap: 6px;
+    }
+    .comp-tab {
+      flex: 1;
+      padding: 10px 8px 10px;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 10px 10px 0 0;
+      border: 1px solid rgba(255,255,255,.08);
+      border-bottom: none;
+      background: rgba(255,255,255,.03);
+      transition: background .2s;
+      user-select: none;
+    }
+    .comp-tab .tab-num { font-size: 10px; font-weight: 900; color: #67e8f9; display: block; margin-bottom: 3px; letter-spacing: .1em; }
+    .comp-tab .tab-label { font-size: 12px; font-weight: 700; color: #94a3b8; display: block; line-height: 1.2; }
+    .comp-tab .tab-sub { font-size: 10px; color: #475569; display: block; margin-top: 2px; }
+    .comp-tab:hover { background: rgba(255,255,255,.06); }
+    .comp-tab:hover .tab-label { color: #e2e8f0; }
+    .comp-tab.active { background: rgba(103,232,249,.06); border-color: rgba(103,232,249,.2); }
+    .comp-tab.active .tab-num { color: #a78bfa; }
+    .comp-tab.active .tab-label { color: #fff; }
+    .comp-tab.active .tab-sub { color: #a78bfa; }
+
+    /* ── Zone principale ── */
+    .comp-panels {
+      flex: 1;
+      margin: 0 8vw;
+      border: 1px solid rgba(103,232,249,.15);
+      border-radius: 0 0 16px 16px;
+      background: rgba(255,255,255,.03);
+      overflow: hidden;
+    }
+
+    .comp-panel { display: none; }
+    .comp-panel.active { display: grid; grid-template-columns: 300px 1fr; grid-template-rows: auto 1fr; }
+
+    /* ── Bandeau du haut pleine largeur ── */
+    .comp-top {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 24px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      background: rgba(255,255,255,.02);
+      flex-wrap: wrap;
+    }
+    .comp-badge {
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(103,232,249,.1);
+      border: 1px solid rgba(103,232,249,.2);
+      font-size: 10px;
+      font-weight: 900;
+      color: #67e8f9;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      white-space: nowrap;
+    }
+    .comp-top-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #f8fafc;
+      flex: 1;
+      min-width: 200px;
+    }
+    .comp-niveau {
+      font-size: 10px;
+      font-weight: 700;
+      color: #a78bfa;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      padding: 4px 10px;
+      background: rgba(167,139,250,.08);
+      border-radius: 6px;
+      border: 1px solid rgba(167,139,250,.15);
+      white-space: nowrap;
+    }
+
+    /* ── Colonne gauche ── */
+    .comp-left {
+      padding: 20px 22px;
+      border-right: 1px solid rgba(255,255,255,.07);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .info-block { display: flex; flex-direction: column; gap: 4px; }
+    .info-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 800;
+      color: #475569;
+    }
+    .info-val { font-size: 13px; color: #cbd5e1; line-height: 1.5; }
+
+    .comp-ce {
+      flex: 1;
+      background: rgba(167,139,250,.06);
+      border: 1px solid rgba(167,139,250,.12);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: #c4b5fd;
+      line-height: 1.65;
+    }
+    .comp-ce-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: #7c3aed;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    /* ── Colonne droite : grille 2×2 ── */
+    .comp-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+    .comp-bloc {
+      padding: 18px 20px;
+      border-right: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .comp-bloc:nth-child(2) { border-right: none; }
+    .comp-bloc:nth-child(3) { border-bottom: none; }
+    .comp-bloc:nth-child(4) { border-right: none; border-bottom: none; }
+
+    .comp-bloc-title {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .comp-bloc:nth-child(1) .comp-bloc-title { color: #67e8f9; }
+    .comp-bloc:nth-child(2) .comp-bloc-title { color: #4ade80; }
+    .comp-bloc:nth-child(3) .comp-bloc-title { color: #fb923c; }
+    .comp-bloc:nth-child(4) .comp-bloc-title { color: #c084fc; }
+
+    .comp-bloc-text { font-size: 13px; color: #94a3b8; line-height: 1.65; }
+
+    /* ── Mobile ── */
+    @media (max-width: 860px) {
+      .comp-panel.active { grid-template-columns: 1fr; }
+      .comp-top { flex-direction: column; align-items: flex-start; }
+      .comp-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,.07); }
+      .comp-right { grid-template-columns: 1fr; }
+      .comp-bloc { border-right: none; }
+      .comp-tabs { gap: 3px; }
+      .comp-tab { min-width: 60px; }
+      .comp-tab .tab-sub { display: none; }
+      .comp-panels { margin: 0 4vw; }
+      .comp-hero { padding: 1.5rem 4vw 0; }
+      .comp-tabs { margin: 1.5rem 4vw 0; }
+    }
+  </style>
 </head>
 <body class="simple-page">
   <div class="orb orb-1"></div>
@@ -20,91 +214,251 @@
       <a href="experiences.html">Expériences</a>
       <a href="sae.html">SAÉ</a>
       <a href="competences.html" class="active">Compétences</a>
-      <a href="preuves.html">Preuves</a>
       <a href="projet.html">Projet</a>
       <a href="bilan.html">Bilan</a>
     </nav>
   </header>
 
-  <main class="document-page">
-    <div class="section-title reveal">
-      <p class="eyebrow">Analyse réflexive</p>
-      <h2>Mes 5 compétences analysées</h2>
-      <p>Chaque compétence est reliée à une preuve, à un contexte, aux réussites, aux limites et à ce que je changerais si c'était à refaire.</p>
+  <main class="comp-page">
+
+    <div class="comp-hero">
+      <div>
+        <p class="eyebrow" style="margin-bottom:6px">Référentiel BUT GEA · Parcours GPRH</p>
+        <h2>Mes 5 compétences</h2>
+      </div>
+      <p class="comp-hero-desc">Analyse réflexive de chaque compétence officielle, reliée à mes expériences concrètes et mes preuves.</p>
     </div>
 
-    <div class="competence-stack">
-      <article class="competence-card reveal">
-        <div class="number">01</div>
-        <div>
-          <h3>Participer à la gestion des ressources humaines</h3>
-          <p><strong>Preuve :</strong> stage chez Skills Office.</p>
-          <p><strong>Contexte :</strong> agence d'intérim devant recruter et gérer des intérimaires à distance pour des entreprises clientes.</p>
-          <p><strong>Pourquoi cette preuve :</strong> elle est directement liée à mon parcours GPRH et à mon projet Master RH.</p>
-          <p><strong>Ce qui a fonctionné :</strong> j'ai gagné en autonomie, en réactivité et en rigueur dans le traitement des candidatures et dossiers.</p>
-          <p><strong>Ce que je changerais :</strong> j'utiliserais davantage d'outils de multidiffusion et de suivi automatisé pour gagner du temps.</p>
-          <div class="essential"><strong>Composantes essentielles acquises en partie :</strong> recrutement, administration du personnel, suivi RH, respect des obligations administratives.</div>
-        </div>
-      </article>
-
-      <article class="competence-card reveal">
-        <div class="number">02</div>
-        <div>
-          <h3>Piloter un projet et coordonner des actions</h3>
-          <p><strong>Preuve :</strong> semaine de prévention des risques à la Résidence Les Pléiades.</p>
-          <p><strong>Contexte :</strong> projet de sensibilisation destiné au personnel et aux résidents, avec supports, sessions et questionnaire.</p>
-          <p><strong>Pourquoi cette preuve :</strong> elle montre ma capacité à organiser, planifier et mobiliser plusieurs acteurs.</p>
-          <p><strong>Ce qui a fonctionné :</strong> la méthode pédagogique, la communication et l'évaluation par questionnaire.</p>
-          <p><strong>Ce que je changerais :</strong> mieux adapter les horaires et ajouter davantage de mises en situation pratiques.</p>
-          <div class="essential"><strong>Composantes essentielles acquises en partie :</strong> planification, coordination, communication projet, évaluation des résultats.</div>
-        </div>
-      </article>
-
-      <article class="competence-card reveal">
-        <div class="number">03</div>
-        <div>
-          <h3>Communiquer avec les parties prenantes</h3>
-          <p><strong>Preuve :</strong> Skills Office et Les Pléiades.</p>
-          <p><strong>Contexte :</strong> échanges avec candidats, intérimaires, clients, salariés, résidents, chefs de service et collègues.</p>
-          <p><strong>Pourquoi cette preuve :</strong> la fonction RH repose sur la relation humaine, l'écoute et la clarté des informations.</p>
-          <p><strong>Ce qui a fonctionné :</strong> j'ai appris à adapter mon discours selon l'interlocuteur.</p>
-          <p><strong>Ce que je changerais :</strong> préparer davantage certains échanges sensibles ou urgents.</p>
-          <div class="essential"><strong>Composantes essentielles acquises en partie :</strong> écoute, communication professionnelle, adaptation du discours, travail collaboratif.</div>
-        </div>
-      </article>
-
-      <article class="competence-card reveal">
-        <div class="number">04</div>
-        <div>
-          <h3>Produire, fiabiliser et analyser l'information de gestion</h3>
-          <p><strong>Preuve :</strong> Phencia Consulting et tableaux de suivi chez Skills Office.</p>
-          <p><strong>Contexte :</strong> facturation, lettrage, rapprochement factures/paiements, suivi de recrutements et bases de données.</p>
-          <p><strong>Pourquoi cette preuve :</strong> elle montre ma rigueur dans le traitement de données administratives et de gestion.</p>
-          <p><strong>Ce qui a fonctionné :</strong> contrôle des informations, organisation et attention aux détails.</p>
-          <p><strong>Ce que je changerais :</strong> mettre en place un tableau centralisé plus automatisé pour limiter la saisie manuelle.</p>
-          <div class="essential"><strong>Composantes essentielles acquises en partie :</strong> fiabilité des données, suivi administratif, contrôle, analyse.</div>
-        </div>
-      </article>
-
-      <article class="competence-card reveal">
-        <div class="number">05</div>
-        <div>
-          <h3>Accompagner la digitalisation des pratiques RH</h3>
-          <p><strong>Preuve :</strong> outils numériques utilisés chez Skills Office.</p>
-          <p><strong>Contexte :</strong> gestion à distance des intérimaires avec Anael, Coffreo, Medispace, signature électronique et tableaux de suivi.</p>
-          <p><strong>Pourquoi cette preuve :</strong> elle montre que les RH évoluent vers des pratiques plus digitales.</p>
-          <p><strong>Ce qui a fonctionné :</strong> gain de temps, meilleure réactivité et dématérialisation des démarches.</p>
-          <p><strong>Ce que je changerais :</strong> accompagner davantage les intérimaires peu à l'aise avec les outils numériques.</p>
-          <div class="essential"><strong>Composantes essentielles acquises en partie :</strong> utilisation des SIRH, dématérialisation, gestion à distance, adaptation aux outils numériques.</div>
-        </div>
-      </article>
+    <div class="comp-tabs">
+      <div class="comp-tab active" onclick="showComp(0,this)">
+        <span class="tab-num">C1</span>
+        <span class="tab-label">Analyser</span>
+        <span class="tab-sub">Niv. 3</span>
+      </div>
+      <div class="comp-tab" onclick="showComp(1,this)">
+        <span class="tab-num">C2</span>
+        <span class="tab-label">Décider</span>
+        <span class="tab-sub">Niv. 3</span>
+      </div>
+      <div class="comp-tab" onclick="showComp(2,this)">
+        <span class="tab-num">C3</span>
+        <span class="tab-label">Piloter</span>
+        <span class="tab-sub">Niv. 3</span>
+      </div>
+      <div class="comp-tab" onclick="showComp(3,this)">
+        <span class="tab-num">C4</span>
+        <span class="tab-label">Administrer</span>
+        <span class="tab-sub">Niv. 2</span>
+      </div>
+      <div class="comp-tab" onclick="showComp(4,this)">
+        <span class="tab-num">C5</span>
+        <span class="tab-label">Développer 2</span>
+        <span class="tab-sub">Niv. 2</span>
+      </div>
     </div>
+
+    <div class="comp-panels">
+
+      <!-- C1 ANALYSER -->
+      <div class="comp-panel active" id="panel-0">
+        <div class="comp-top">
+          <span class="comp-badge">C1 · Analyser</span>
+          <span class="comp-top-title">Analyser les processus de l'organisation dans son environnement</span>
+          <span class="comp-niveau">Niveau 3 — Conseiller pour l'amélioration des processus</span>
+        </div>
+        <div class="comp-left">
+          <div class="info-block">
+            <span class="info-label">Preuve choisie</span>
+            <span class="info-val">Livret BTS — Résidence Les Pléiades (LNA Santé)</span>
+          </div>
+          <div class="comp-ce">
+            <div class="comp-ce-label">Composantes essentielles</div>
+            En déterminant correctement ses enjeux sociaux, économiques et juridiques · en identifiant rigoureusement les dimensions de l'identité et des caractéristiques internes et externes · en présentant de manière détaillée les attentes de chacun des acteurs et partenaires.
+          </div>
+        </div>
+        <div class="comp-right">
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Contexte</div>
+            <div class="comp-bloc-text">Analyse complète de l'EHPAD Les Pléiades : présentation de l'organisation, analyse SWOT, analyse managériale (mode de production, coordination, style de management), analyse financière et commerciale, identification des risques.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Ce qui a fonctionné</div>
+            <div class="comp-bloc-text">J'ai su identifier les enjeux propres au secteur médico-social (réglementations HAS/ARS, concurrence locale, risques professionnels) et les relier au fonctionnement concret de l'établissement.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Ce que je changerais</div>
+            <div class="comp-bloc-text">Approfondir l'analyse financière avec des indicateurs plus précis et comparer les données avec d'autres EHPAD du groupe LNA Santé pour avoir une perspective de benchmark.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Lien avec mes expériences</div>
+            <div class="comp-bloc-text">Chez Safe Bag, j'ai analysé le processus de recrutement existant pour identifier ses limites et proposer des améliorations concrètes via un SIPOC et un diagramme de flux.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C2 DÉCIDER -->
+      <div class="comp-panel" id="panel-1">
+        <div class="comp-top">
+          <span class="comp-badge">C2 · Décider</span>
+          <span class="comp-top-title">Aider à la prise de décision</span>
+          <span class="comp-niveau">Niveau 3 — Concourir à la prise de décision</span>
+        </div>
+        <div class="comp-left">
+          <div class="info-block">
+            <span class="info-label">Preuve choisie</span>
+            <span class="info-val">Livret Safe Bag — indicateurs SMART et plan d'action recrutement</span>
+          </div>
+          <div class="comp-ce">
+            <div class="comp-ce-label">Composantes essentielles</div>
+            En utilisant efficacement un système d'information de gestion adapté · en utilisant des outils notamment numériques pertinents · en interprétant pertinemment les données qualitatives et quantitatives · en respectant rigoureusement les contraintes et procédures de l'organisation.
+          </div>
+        </div>
+        <div class="comp-right">
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Contexte</div>
+            <div class="comp-bloc-text">À partir du diagnostic du processus de recrutement chez Safe Bag, j'ai construit des indicateurs SMART (délai de recrutement, taux de réussite période d'essai, satisfaction managers) et un plan d'action priorisé.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Ce qui a fonctionné</div>
+            <div class="comp-bloc-text">La mise en place d'un tableau de suivi Excel et d'indicateurs mesurables a permis de structurer la prise de décision sur les recrutements de manière objective et traçable.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Ce que je changerais</div>
+            <div class="comp-bloc-text">Intégrer des données quantitatives sur le turnover et le coût moyen d'un recrutement pour renforcer l'argumentation et faciliter les arbitrages.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Lien avec mes expériences</div>
+            <div class="comp-bloc-text">Chez Phencia Consulting, j'ai utilisé des outils de gestion (facturation, lettrage, rapprochement) pour produire une information fiable servant à la prise de décision financière.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C3 PILOTER -->
+      <div class="comp-panel" id="panel-2">
+        <div class="comp-top">
+          <span class="comp-badge">C3 · Piloter</span>
+          <span class="comp-top-title">Piloter les relations avec les parties prenantes de l'organisation</span>
+          <span class="comp-niveau">Niveau 3 — Améliorer les relations entre les parties prenantes</span>
+        </div>
+        <div class="comp-left">
+          <div class="info-block">
+            <span class="info-label">Preuve choisie</span>
+            <span class="info-val">Semaine de prévention des risques — Résidence Les Pléiades</span>
+          </div>
+          <div class="comp-ce">
+            <div class="comp-ce-label">Composantes essentielles</div>
+            En mettant en œuvre une démarche favorisant la cohésion de groupe · en participant efficacement à des projets collaboratifs · en mobilisant des outils et techniques de communication adaptés aux enjeux · en contribuant à la gestion individuelle et collective des parties prenantes.
+          </div>
+        </div>
+        <div class="comp-right">
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Contexte</div>
+            <div class="comp-bloc-text">Coordination de toutes les parties prenantes (chefs de service, soignants, ASH, restauration, résidents) pour la semaine de prévention sur 3 jours, avec sessions adaptées à chaque pôle.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Ce qui a fonctionné</div>
+            <div class="comp-bloc-text">La réunion de lancement, la communication ciblée (flyers, mails, rappels) et l'approche ludique ont favorisé l'adhésion. 85 % ont trouvé la méthode innovante, 88 % d'intérêt global.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Ce que je changerais</div>
+            <div class="comp-bloc-text">Mieux adapter les horaires pour les équipes de nuit et ajouter des mises en situation pratiques pour renforcer l'ancrage des bonnes pratiques.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Lien avec mes expériences</div>
+            <div class="comp-bloc-text">Chez Skills Office, j'ai géré quotidiennement les relations avec candidats, intérimaires et entreprises clientes en adaptant ma communication à chaque interlocuteur.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C4 ADMINISTRER -->
+      <div class="comp-panel" id="panel-3">
+        <div class="comp-top">
+          <span class="comp-badge">C4 · Administrer</span>
+          <span class="comp-top-title">Gérer l'administration du personnel</span>
+          <span class="comp-niveau">Niveau 2 — Optimiser les processus administratifs RH</span>
+        </div>
+        <div class="comp-left">
+          <div class="info-block">
+            <span class="info-label">Preuve choisie</span>
+            <span class="info-val">Stage Skills Office Intérim — administration RH</span>
+          </div>
+          <div class="comp-ce">
+            <div class="comp-ce-label">Composantes essentielles</div>
+            En appliquant rigoureusement le cadre juridique en matière de RH · en établissant la paie conformément à la réglementation en vigueur · en produisant des documents administratifs et juridiques adaptés.
+          </div>
+        </div>
+        <div class="comp-right">
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Contexte</div>
+            <div class="comp-bloc-text">Gestion administrative complète des intérimaires : rédaction des contrats de mission, DPAE, visites médicales, suivi des dossiers. Utilisation d'Anael, Coffreo (signature électronique) et Medispace.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Ce qui a fonctionné</div>
+            <div class="comp-bloc-text">Rigueur dans le respect des délais légaux (DPAE dans les 8 heures), organisation des dossiers et montée en compétence progressive sur les outils SIRH spécifiques à l'intérim.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Ce que je changerais</div>
+            <div class="comp-bloc-text">Approfondir mes connaissances en droit du travail — motifs de recours à l'intérim, contrats spécifiques — pour gagner en autonomie sur les situations complexes.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Lien avec mes expériences</div>
+            <div class="comp-bloc-text">Cette compétence est au cœur de mon stage : chaque dossier intérimaire impliquait la maîtrise du cadre juridique et la production rigoureuse de documents conformes.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C5 DÉVELOPPER 2 -->
+      <div class="comp-panel" id="panel-4">
+        <div class="comp-top">
+          <span class="comp-badge">C5 · Développer 2</span>
+          <span class="comp-top-title">Gérer le développement des ressources humaines</span>
+          <span class="comp-niveau">Niveau 2 — Optimiser les politiques RH</span>
+        </div>
+        <div class="comp-left">
+          <div class="info-block">
+            <span class="info-label">Preuve choisie</span>
+            <span class="info-val">Livret Safe Bag — optimisation recrutement et intégration</span>
+          </div>
+          <div class="comp-ce">
+            <div class="comp-ce-label">Composantes essentielles</div>
+            En mobilisant les dispositifs adaptés de formation et de développement des compétences · en contribuant efficacement au processus de recrutement externe · en assurant une communication RH interne et externe pertinente · en contribuant à la mise en place des dispositifs de protection de la santé-sécurité et de la QVT.
+          </div>
+        </div>
+        <div class="comp-right">
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Contexte</div>
+            <div class="comp-bloc-text">Proposition d'un processus de recrutement structuré (fiche de poste, grille d'entretien, diffusion multi-plateformes) et d'un parcours d'intégration complet (carnet d'accueil, check-list, référent) pour Safe Bag.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Ce qui a fonctionné</div>
+            <div class="comp-bloc-text">Conception d'outils directement utilisables par l'entreprise et plan d'action progressif sur 8 semaines, adapté aux contraintes de l'activité aéroportuaire et aux besoins saisonniers.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Ce que je changerais</div>
+            <div class="comp-bloc-text">Intégrer une démarche QVT plus explicite dans le parcours d'intégration et prévoir des indicateurs de rétention à 6 mois pour mesurer l'impact réel des outils mis en place.</div>
+          </div>
+          <div class="comp-bloc">
+            <div class="comp-bloc-title">Lien avec mes expériences</div>
+            <div class="comp-bloc-text">Cette compétence synthétise mon stage Skills Office (recrutement, intégration, SIRH) et mon livret Safe Bag : passer d'une pratique terrain à une politique RH structurée.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /comp-panels -->
   </main>
 
-  <footer>
+  <footer style="margin-top:2rem">
     <p>Portfolio de Moulka Lakhal · BUT GEA GPRH · Université de Toulon</p>
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    function showComp(index, el) {
+      document.querySelectorAll('.comp-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.comp-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('panel-' + index).classList.add('active');
+      el.classList.add('active');
+    }
+  </script>
 </body>
 </html>

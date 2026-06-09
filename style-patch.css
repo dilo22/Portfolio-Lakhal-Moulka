@@ -92,3 +92,81 @@ div.home-nav p {
 body.simple-page {
   scroll-snap-type: none;
 }
+
+/* ── Pages internes : moins d'espace vide ── */
+.document-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 5.5rem 8vw 3rem !important;
+}
+
+body.simple-page .section-title {
+  margin-bottom: 24px;
+}
+
+body.simple-page .section-title h2 {
+  font-size: clamp(2rem, 4vw, 3rem) !important;
+  margin-bottom: 10px;
+}
+
+body.simple-page .section-title p {
+  font-size: 15px;
+}
+
+body.simple-page .eyebrow {
+  margin-bottom: 6px;
+}
+
+body.simple-page .competence-stack {
+  gap: 14px;
+}
+
+body.simple-page .competence-card {
+  padding: 20px 24px;
+  gap: 16px;
+}
+
+body.simple-page .competence-card .number {
+  font-size: 28px;
+}
+
+body.simple-page .competence-card h3 {
+  font-size: 18px !important;
+  margin-bottom: 8px;
+}
+
+body.simple-page .competence-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 5px;
+}
+
+body.simple-page .essential {
+  margin-top: 10px;
+  padding: 11px 14px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* SAÉ cards aussi */
+body.simple-page .sae-layout {
+  gap: 14px;
+}
+
+body.simple-page .sae-card {
+  padding: 20px 24px;
+}
+
+body.simple-page .sae-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Cards grille */
+body.simple-page .cards-grid {
+  gap: 14px;
+}
+
+body.simple-page .glass-card {
+  padding: 20px 22px;
+}
