@@ -6,6 +6,152 @@
   <title>SAÉ - Moulka Lakhal</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="style-patch.css" />
+  <style>
+    body.simple-page { scroll-snap-type: none; }
+
+    .sae-page { padding: 5.5rem 0 3rem; }
+
+    /* ── En-tête ── */
+    .sae-hero {
+      padding: 1.5rem 8vw 2rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .sae-hero h2 { font-size: clamp(1.8rem, 3.5vw, 3rem); line-height: 1; letter-spacing: -.04em; margin: 4px 0 0; }
+    .sae-hero-desc { max-width: 360px; font-size: 13px; color: #64748b; line-height: 1.6; align-self: flex-end; }
+
+    /* ── Grille 3 cartes ── */
+    .sae-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      margin: 0 8vw;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .sae-card-new {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid rgba(255,255,255,.08);
+      transition: background .25s;
+    }
+    .sae-card-new:last-child { border-right: none; }
+    .sae-card-new:hover { background: rgba(255,255,255,.03); }
+
+    /* Bandeau couleur en haut */
+    .sae-card-top {
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .sae-code {
+      font-size: 9px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .sae-card-new:nth-child(1) .sae-code { color: #67e8f9; }
+    .sae-card-new:nth-child(2) .sae-code { color: #a78bfa; }
+    .sae-card-new:nth-child(3) .sae-code { color: #fb923c; }
+
+    .sae-card-top h3 {
+      font-size: 15px;
+      font-weight: 800;
+      color: #f8fafc;
+      line-height: 1.3;
+      margin: 0;
+    }
+
+    .sae-tag {
+      display: inline-flex;
+      margin-top: 10px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+    .sae-card-new:nth-child(1) .sae-tag { background: rgba(103,232,249,.1); color: #67e8f9; border: 1px solid rgba(103,232,249,.2); }
+    .sae-card-new:nth-child(2) .sae-tag { background: rgba(167,139,250,.1); color: #a78bfa; border: 1px solid rgba(167,139,250,.2); }
+    .sae-card-new:nth-child(3) .sae-tag { background: rgba(251,146,60,.1); color: #fb923c; border: 1px solid rgba(251,146,60,.2); }
+
+    /* Corps de la carte */
+    .sae-card-body { padding: 18px 22px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+
+    .sae-section-label {
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: #475569;
+      margin-bottom: 4px;
+    }
+    .sae-section-text { font-size: 12.5px; color: #94a3b8; line-height: 1.65; }
+
+    /* Outils / résultats en tags */
+    .sae-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 2px;
+    }
+    .sae-pill {
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      font-size: 11px;
+      color: #cbd5e1;
+    }
+
+    /* Bloc résultat mis en valeur */
+    .sae-result {
+      margin-top: auto;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .sae-card-new:nth-child(1) .sae-result { background: rgba(103,232,249,.05); border: 1px solid rgba(103,232,249,.12); color: #a5f3fc; }
+    .sae-card-new:nth-child(2) .sae-result { background: rgba(167,139,250,.05); border: 1px solid rgba(167,139,250,.12); color: #ddd6fe; }
+    .sae-card-new:nth-child(3) .sae-result { background: rgba(251,146,60,.05); border: 1px solid rgba(251,146,60,.12); color: #fed7aa; }
+
+    .sae-result-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; opacity: .7; margin-bottom: 4px; }
+
+    /* ── Bande compétences en bas ── */
+    .sae-footer {
+      margin: 0 8vw;
+      border: 1px solid rgba(255,255,255,.08);
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      overflow: hidden;
+    }
+    .sae-footer-cell {
+      padding: 12px 22px;
+      border-right: 1px solid rgba(255,255,255,.07);
+      font-size: 11px;
+      color: #475569;
+    }
+    .sae-footer-cell:last-child { border-right: none; }
+    .sae-footer-cell strong { color: #64748b; font-size: 9px; text-transform: uppercase; letter-spacing: .1em; display: block; margin-bottom: 4px; }
+
+    @media (max-width: 860px) {
+      .sae-grid { grid-template-columns: 1fr; margin: 0 4vw; }
+      .sae-card-new { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+      .sae-footer { grid-template-columns: 1fr; margin: 0 4vw; }
+      .sae-footer-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,.07); }
+      .sae-hero { padding: 1.5rem 4vw 2rem; }
+    }
+  </style>
 </head>
 <body class="simple-page">
   <div class="orb orb-2"></div>
@@ -21,86 +167,148 @@
       <a href="experiences.html">Expériences</a>
       <a href="sae.html" class="active">SAÉ</a>
       <a href="competences.html">Compétences</a>
+      <a href="preuves.html">Preuves</a>
       <a href="projet.html">Projet</a>
       <a href="bilan.html">Bilan</a>
     </nav>
   </header>
 
-  <main class="document-page">
-    <div class="section-title reveal">
-      <p class="eyebrow">Travaux universitaires</p>
-      <h2>Mes deux projets</h2>
-      <p>Deux projets concrets réalisés dans le cadre du BUT GEA GPRH, ancrés dans mes expériences professionnelles réelles.</p>
+  <main class="sae-page">
+
+    <div class="sae-hero reveal">
+      <div>
+        <p class="eyebrow" style="margin-bottom:6px">Situations d'apprentissage et d'évaluation</p>
+        <h2>Mes 3 SAÉ</h2>
+      </div>
+      <p class="sae-hero-desc">Trois projets concrets réalisés dans le cadre du BUT GEA GPRH, ancrés dans mes expériences professionnelles réelles.</p>
     </div>
 
-    <div class="competence-stack">
+    <div class="sae-grid reveal">
 
-      <!-- SAÉ 1 : Safe Bag -->
-      <article class="competence-card reveal">
-        <div class="number">01</div>
-        <div>
+      <!-- SAÉ 5.01 : Transformation numérique -->
+      <div class="sae-card-new">
+        <div class="sae-card-top">
+          <span class="sae-code">SAÉ 5.01</span>
+          <h3>Transformation numérique — Digitalisation d'un tableau de suivi</h3>
+          <span class="sae-tag">BUT 3 · Projet collectif</span>
+        </div>
+        <div class="sae-card-body">
+          <div>
+            <div class="sae-section-label">Contexte</div>
+            <div class="sae-section-text">Dans le cadre de la SAÉ Transformation Numérique, notre groupe (7 étudiants, agence fictive Novasens) a travaillé pour La Poste — agence Log'issimo de Toulon, 60 salariés, 60 véhicules. Le tableau de suivi du parc automobile était entièrement manuel, source d'erreurs, de pertes d'informations et de manque de visibilité en temps réel.</div>
+          </div>
+          <div>
+            <div class="sae-section-label">Solution proposée</div>
+            <div class="sae-section-text">Remplacement du classeur manuel par un écran tactile connecté avec le logiciel LOG'ISSIMO : suivi des véhicules, planning, utilisateurs, tournées, cartes essence et téléphones dédiés — centralisé et mis à jour en temps réel.</div>
+          </div>
+          <div>
+            <div class="sae-section-label">Outils mobilisés</div>
+            <div class="sae-pills">
+              <span class="sae-pill">Maquette UI</span>
+              <span class="sae-pill">GANTT</span>
+              <span class="sae-pill">Analyse RGPD</span>
+              <span class="sae-pill">Indicateurs</span>
+              <span class="sae-pill">Chiffrage (2 628 €)</span>
+              <span class="sae-pill">Plan de formation</span>
+            </div>
+          </div>
+          <div class="sae-result">
+            <div class="sae-result-label">Ce que j'ai appris</div>
+            Piloter un projet de transformation numérique de A à Z : analyse du besoin, choix de solution, chiffrage, aspects juridiques (RGPD, Code du travail), formation des utilisateurs et mesure de la performance.
+          </div>
+        </div>
+      </div>
+
+      <!-- SAÉ 5.02 : Safe Bag -->
+      <div class="sae-card-new">
+        <div class="sae-card-top">
+          <span class="sae-code">SAÉ 5.02</span>
           <h3>Optimisation d'un processus administratif RH — Safe Bag</h3>
-
-          <p><strong>Contexte :</strong> Safe Bag est une entreprise spécialisée dans la protection des bagages en milieu aéroportuaire, présente dans plus de 150 points de vente à travers le monde. J'y travaille actuellement et j'ai pu constater des dysfonctionnements dans le processus de recrutement et d'intégration, confirmés par un échange avec le directeur opérationnel.</p>
-
-          <p><strong>Problématique :</strong> Comment optimiser le recrutement et l'intégration chez Safe Bag pour attirer plus de candidats et sécuriser les embauches, tout en tenant compte des contraintes liées à l'activité aéroportuaire ?</p>
-
-          <p><strong>Diagnostic :</strong> Le recrutement était déclenché dans l'urgence, sans grille d'entretien ni critères définis. L'intégration se faisait de manière informelle, par observation, sans accompagnement structuré ni référent désigné.</p>
-
-          <p><strong>Solutions mises en place :</strong></p>
-          <div class="tags" style="margin-bottom:14px">
-            <span>Fiche de poste standardisée</span>
-            <span>Grille d'entretien</span>
-            <span>Tableau de suivi des candidatures</span>
-            <span>Diffusion multi-plateformes</span>
-            <span>Parcours d'intégration structuré</span>
-            <span>Carnet d'accueil</span>
-            <span>Check-list d'intégration</span>
-            <span>Référent d'intégration</span>
+          <span class="sae-tag">BUT 3 · Projet individuel</span>
+        </div>
+        <div class="sae-card-body">
+          <div>
+            <div class="sae-section-label">Contexte</div>
+            <div class="sae-section-text">Safe Bag est spécialisée dans la protection des bagages en milieu aéroportuaire (150 points de vente mondiaux). J'y travaille actuellement et j'ai constaté des dysfonctionnements dans le recrutement et l'intégration, confirmés par un échange avec le directeur opérationnel.</div>
           </div>
-
-          <p><strong>Outils mobilisés :</strong> SIPOC, diagramme de flux, GANTT, indicateurs SMART.</p>
-
-          <div class="essential">
-            <strong>Ce que j'ai appris :</strong> analyser un processus RH existant, identifier ses limites, proposer des solutions concrètes et structurées, et penser l'intégration comme un processus RH à part entière, pas seulement le recrutement.
+          <div>
+            <div class="sae-section-label">Problématique</div>
+            <div class="sae-section-text">Comment optimiser le recrutement et l'intégration chez Safe Bag pour attirer plus de candidats et sécuriser les embauches, tout en tenant compte des contraintes aéroportuaires ?</div>
+          </div>
+          <div>
+            <div class="sae-section-label">Solutions produites</div>
+            <div class="sae-pills">
+              <span class="sae-pill">Fiche de poste</span>
+              <span class="sae-pill">Grille d'entretien</span>
+              <span class="sae-pill">Tableau de suivi</span>
+              <span class="sae-pill">Carnet d'accueil</span>
+              <span class="sae-pill">Check-list intégration</span>
+              <span class="sae-pill">SIPOC · GANTT · SMART</span>
+            </div>
+          </div>
+          <div class="sae-result">
+            <div class="sae-result-label">Ce que j'ai appris</div>
+            Analyser un processus RH existant, identifier ses limites, proposer des solutions concrètes et penser l'intégration comme un processus RH à part entière, pas seulement le recrutement.
           </div>
         </div>
-      </article>
+      </div>
 
-      <!-- SAÉ 2 : LNA Santé / Les Pléiades -->
-      <article class="competence-card reveal">
-        <div class="number">02</div>
-        <div>
-          <h3>Semaine de prévention des risques — Résidence Les Pléiades (BTS)</h3>
-
-          <p><strong>Contexte :</strong> La Résidence Les Pléiades est un EHPAD situé à Toulon, affilié au groupe LNA Santé, comptant 80 salariés. J'y ai effectué un stage de BTS du 13/01/2025 au 07/03/2025. Dès mon arrivée, j'ai pris en charge la gestion et la mise en œuvre de la semaine de prévention des risques, organisée dans le cadre de la politique santé-sécurité du groupe.</p>
-
-          <p><strong>Objectif :</strong> Sensibiliser l'ensemble du personnel (soignants, ASH, restauration, administratif) et les résidents aux risques professionnels — chutes, hygiène, risques psychosociaux, gestes de premiers secours — via une approche ludique et participative.</p>
-
-          <p><strong>Ce que j'ai conduit :</strong></p>
-          <div class="tags" style="margin-bottom:14px">
-            <span>Planification sur 3 jours (26/02, 27/02, 04/03/2025)</span>
-            <span>Réunion de lancement avec les chefs de service</span>
-            <span>Présentation PowerPoint + jeu pédagogique</span>
-            <span>Flyers et affiches de communication</span>
-            <span>Questionnaire d'évaluation avec QR code</span>
-            <span>Diagramme de Gantt</span>
-            <span>Atelier participatif avec les résidents</span>
-            <span>Note de cadrage</span>
+      <!-- SAÉ BTS : Les Pléiades -->
+      <div class="sae-card-new">
+        <div class="sae-card-top">
+          <span class="sae-code">SAÉ BTS · E51</span>
+          <h3>Semaine de prévention des risques — Résidence Les Pléiades</h3>
+          <span class="sae-tag">BTS · Stage 2025</span>
+        </div>
+        <div class="sae-card-body">
+          <div>
+            <div class="sae-section-label">Contexte</div>
+            <div class="sae-section-text">EHPAD Les Pléiades, Toulon — groupe LNA Santé, 80 salariés. Stage du 13/01 au 07/03/2025. Dès mon arrivée, j'ai pris en charge la gestion complète de la semaine de prévention des risques professionnels.</div>
           </div>
-
-          <p><strong>Résultats :</strong> 85 % des participants ont trouvé la méthode pédagogique innovante, 90 % des soignants ont jugé les informations claires et utiles, 88 % d'intérêt global pour l'événement.</p>
-
-          <div class="essential">
-            <strong>Ce que j'ai appris :</strong> piloter un projet de A à Z, coordonner plusieurs services, concevoir des supports de communication adaptés à des publics différents (soignants, résidents, administratifs), et évaluer l'impact d'une action RH grâce à des indicateurs concrets.
+          <div>
+            <div class="sae-section-label">Ce que j'ai conduit</div>
+            <div class="sae-pills">
+              <span class="sae-pill">Planning 3 jours</span>
+              <span class="sae-pill">Réunion chefs de service</span>
+              <span class="sae-pill">Jeu pédagogique</span>
+              <span class="sae-pill">Flyers + mails</span>
+              <span class="sae-pill">QR code questionnaire</span>
+              <span class="sae-pill">Diagramme de Gantt</span>
+              <span class="sae-pill">Note de cadrage</span>
+            </div>
+          </div>
+          <div>
+            <div class="sae-section-label">Résultats</div>
+            <div class="sae-section-text">85 % méthode innovante · 90 % informations claires et utiles · 88 % d'intérêt global pour l'événement.</div>
+          </div>
+          <div class="sae-result">
+            <div class="sae-result-label">Ce que j'ai appris</div>
+            Piloter un projet de A à Z, coordonner plusieurs services, concevoir des supports adaptés à des publics différents et évaluer l'impact d'une action RH via des indicateurs concrets.
           </div>
         </div>
-      </article>
+      </div>
 
     </div>
+
+    <!-- Bande compétences associées -->
+    <div class="sae-footer reveal">
+      <div class="sae-footer-cell">
+        <strong>Compétences mobilisées</strong>
+        C2 Décider · C3 Piloter · C5 Développer 2
+      </div>
+      <div class="sae-footer-cell">
+        <strong>Compétences mobilisées</strong>
+        C1 Analyser · C4 Administrer · C5 Développer 2
+      </div>
+      <div class="sae-footer-cell">
+        <strong>Compétences mobilisées</strong>
+        C1 Analyser · C3 Piloter · C5 Développer 2
+      </div>
+    </div>
+
   </main>
 
-  <footer>
+  <footer style="margin-top:2.5rem">
     <p>Portfolio de Moulka Lakhal · BUT GEA GPRH · Université de Toulon</p>
   </footer>
 
