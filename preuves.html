@@ -5,6 +5,190 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Preuves - Moulka Lakhal</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style-patch.css" />
+  <style>
+    body.simple-page { scroll-snap-type: none; }
+    .preuves-page { padding: 5.5rem 0 3rem; }
+
+    .preuves-hero {
+      padding: 1.5rem 8vw 2rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .preuves-hero h2 { font-size: clamp(1.8rem, 3.5vw, 3rem); line-height: 1; letter-spacing: -.04em; margin: 4px 0 0; }
+    .preuves-hero-desc { max-width: 360px; font-size: 13px; color: #64748b; line-height: 1.6; align-self: flex-end; }
+
+    /* ── Grille 3 grandes cartes ── */
+    .preuves-grid-main {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      margin: 0 8vw;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .preuve-big-card {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid rgba(255,255,255,.08);
+      transition: background .25s;
+    }
+    .preuve-big-card:last-child { border-right: none; }
+
+    .preuve-big-top {
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .preuve-big-code {
+      font-size: 9px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .c-badge { background: rgba(103,232,249,.1); color: #67e8f9; border: 1px solid rgba(103,232,249,.2); }
+    .v-badge { background: rgba(167,139,250,.1); color: #a78bfa; border: 1px solid rgba(167,139,250,.2); }
+    .o-badge { background: rgba(251,146,60,.1);  color: #fb923c; border: 1px solid rgba(251,146,60,.2); }
+
+    .preuve-big-top h3 { font-size: 14px; font-weight: 800; color: #f8fafc; line-height: 1.3; margin: 0 0 4px; }
+    .preuve-big-top p  { font-size: 11px; color: #475569; line-height: 1.5; margin: 0; }
+
+    .preuve-big-body {
+      padding: 16px 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .preuve-doc-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.4;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .preuve-doc-item:last-child { border-bottom: none; }
+    .preuve-doc-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .c-dot { background: #67e8f9; }
+    .v-dot { background: #a78bfa; }
+    .o-dot { background: #fb923c; }
+
+    .preuve-big-footer {
+      padding: 14px 22px;
+      border-top: 1px solid rgba(255,255,255,.07);
+    }
+    .preuve-dl-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity .2s, transform .2s;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .preuve-dl-btn:hover { opacity: .85; transform: translateY(-1px); }
+    .c-btn { background: rgba(103,232,249,.12); color: #67e8f9; border: 1px solid rgba(103,232,249,.25); }
+    .v-btn { background: rgba(167,139,250,.12); color: #a78bfa; border: 1px solid rgba(167,139,250,.25); }
+    .o-btn { background: rgba(251,146,60,.12);  color: #fb923c; border: 1px solid rgba(251,146,60,.25); }
+
+    /* ── Expériences pro en dessous ── */
+    .preuves-exp {
+      margin: 1.5rem 8vw 0;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .preuves-exp-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,.02);
+    }
+    .g-badge { background: rgba(74,222,128,.1); color: #4ade80; border: 1px solid rgba(74,222,128,.2); font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: .16em; padding: 3px 10px; border-radius: 999px; }
+    .preuves-exp-header span { font-size: 14px; font-weight: 700; color: #f8fafc; }
+    .preuves-exp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .exp-card {
+      padding: 16px 20px;
+      border-right: 1px solid rgba(255,255,255,.07);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .exp-card:last-child { border-right: none; }
+    .exp-card-info h4 { font-size: 13px; font-weight: 700; color: #e2e8f0; margin: 0 0 4px; }
+    .exp-card-info p  { font-size: 11px; color: #475569; margin: 0; }
+    .exp-dl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      background: rgba(74,222,128,.1);
+      color: #4ade80;
+      border: 1px solid rgba(74,222,128,.2);
+      white-space: nowrap;
+      transition: opacity .2s;
+      flex-shrink: 0;
+    }
+    .exp-dl-btn:hover { opacity: .8; }
+
+    /* ── Note Vercel ── */
+    .vercel-note {
+      margin: 1.5rem 8vw 0;
+      padding: 14px 18px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .vercel-icon { font-size: 18px; flex-shrink: 0; padding-top: 1px; }
+    .vercel-note-title { font-size: 12px; font-weight: 700; color: #f8fafc; margin-bottom: 4px; }
+    .vercel-note-text  { font-size: 11.5px; color: #64748b; line-height: 1.65; }
+    .vercel-note-text code { font-family: monospace; background: rgba(255,255,255,.07); border-radius: 4px; padding: 1px 5px; font-size: 11px; color: #67e8f9; }
+
+    @media (max-width: 860px) {
+      .preuves-grid-main { grid-template-columns: 1fr; }
+      .preuve-big-card { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+      .preuves-exp-grid { grid-template-columns: 1fr; }
+      .exp-card { border-right: none; border-bottom: 1px solid rgba(255,255,255,.07); }
+      .preuves-grid-main, .preuves-exp, .vercel-note { margin-left: 4vw; margin-right: 4vw; }
+      .preuves-hero { padding-left: 4vw; padding-right: 4vw; }
+    }
+  </style>
 </head>
 <body class="simple-page">
   <div class="orb orb-1"></div>
@@ -20,52 +204,142 @@
       <a href="experiences.html">Expériences</a>
       <a href="sae.html">SAÉ</a>
       <a href="competences.html">Compétences</a>
+      <a href="preuves.html" class="active">Preuves</a>
       <a href="projet.html">Projet</a>
       <a href="bilan.html">Bilan</a>
     </nav>
   </header>
 
-  <main class="document-page">
-    <div class="section-title reveal">
-      <p class="eyebrow">Traces et preuves</p>
-      <h2>Les documents à ajouter dans le site</h2>
-      <p>Dépose tes fichiers dans <strong>assets/preuves/</strong> et remplace les liens ci-dessous par les vrais chemins.</p>
+  <main class="preuves-page">
+
+    <div class="preuves-hero reveal">
+      <div>
+        <p class="eyebrow" style="margin-bottom:6px">Traces et documents</p>
+        <h2>Mes preuves</h2>
+      </div>
+      <p class="preuves-hero-desc">Un PDF par SAÉ regroupant l'ensemble des documents produits. À déposer dans <code style="font-family:monospace;font-size:11px;background:rgba(255,255,255,.07);padding:2px 6px;border-radius:4px;color:#67e8f9">public/preuves/</code> avant déploiement.</p>
     </div>
-    <div class="proof-grid reveal">
-      <article class="proof-card">
-        <h3>Skills Office</h3>
-        <ul>
-          <li>Offre d'emploi anonymisée</li>
-          <li>Tableau de suivi recrutement</li>
-          <li>Synthèse candidat anonymisée</li>
-          <li>Exemple de procédure administrative</li>
-        </ul>
-        <a class="mini-link" href="assets/preuves/skills-office.pdf">Ajouter le PDF</a>
-      </article>
-      <article class="proof-card">
-        <h3>Résidence Les Pléiades</h3>
-        <ul>
-          <li>Flyer de prévention</li>
-          <li>Questionnaire</li>
-          <li>QR code</li>
-          <li>Diagramme de Gantt</li>
-          <li>Résultats du questionnaire</li>
-        </ul>
-        <a class="mini-link" href="assets/preuves/les-pleiades.pdf">Ajouter le PDF</a>
-      </article>
-      <article class="proof-card">
-        <h3>Phencia Consulting</h3>
-        <ul>
-          <li>Facture anonymisée</li>
-          <li>Exemple de lettrage</li>
-          <li>Rapprochement facture/paiement</li>
-        </ul>
-        <a class="mini-link" href="assets/preuves/phencia.pdf">Ajouter le PDF</a>
-      </article>
+
+    <!-- 3 grandes cartes SAÉ -->
+    <div class="preuves-grid-main reveal">
+
+      <!-- SAÉ 5.01 -->
+      <div class="preuve-big-card">
+        <div class="preuve-big-top">
+          <span class="preuve-big-code c-badge">SAÉ 5.01</span>
+          <h3>Transformation numérique</h3>
+          <p>Digitalisation d'un tableau de suivi — La Poste · Log'issimo</p>
+        </div>
+        <div class="preuve-big-body">
+          <div class="preuve-doc-item"><span class="preuve-doc-dot c-dot"></span>Présentation orale complète</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot c-dot"></span>Maquette logiciel LOG'ISSIMO</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot c-dot"></span>Planning de Gantt</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot c-dot"></span>Tableau des coûts prévisionnels</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot c-dot"></span>Analyse RGPD et sécurisation des données</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot c-dot"></span>Indicateurs de performance</div>
+        </div>
+        <div class="preuve-big-footer">
+          <a class="preuve-dl-btn c-btn" href="public/preuves/sae501-transformation-numerique.pdf" target="_blank">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/><path d="M5 19h14"/></svg>
+            Télécharger le PDF
+          </a>
+        </div>
+      </div>
+
+      <!-- SAÉ 5.02 -->
+      <div class="preuve-big-card">
+        <div class="preuve-big-top">
+          <span class="preuve-big-code v-badge">SAÉ 5.02</span>
+          <h3>Optimisation processus RH</h3>
+          <p>Recrutement et intégration — Safe Bag · Aéroport Nice</p>
+        </div>
+        <div class="preuve-big-body">
+          <div class="preuve-doc-item"><span class="preuve-doc-dot v-dot"></span>Livret complet avec annexes</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot v-dot"></span>Fiche de poste standardisée</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot v-dot"></span>Grille d'entretien de recrutement</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot v-dot"></span>Tableau de suivi des candidatures</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot v-dot"></span>Check-list d'intégration</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot v-dot"></span>Carnet d'accueil Safe Bag</div>
+        </div>
+        <div class="preuve-big-footer">
+          <a class="preuve-dl-btn v-btn" href="public/preuves/sae502-safe-bag.pdf" target="_blank">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/><path d="M5 19h14"/></svg>
+            Télécharger le PDF
+          </a>
+        </div>
+      </div>
+
+      <!-- SAÉ BTS -->
+      <div class="preuve-big-card">
+        <div class="preuve-big-top">
+          <span class="preuve-big-code o-badge">SAÉ BTS E51</span>
+          <h3>Semaine de prévention</h3>
+          <p>Prévention des risques — Résidence Les Pléiades · LNA Santé</p>
+        </div>
+        <div class="preuve-big-body">
+          <div class="preuve-doc-item"><span class="preuve-doc-dot o-dot"></span>Livret BTS complet</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot o-dot"></span>Flyer semaine de prévention</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot o-dot"></span>Questionnaire d'évaluation + QR code</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot o-dot"></span>Résultats du questionnaire</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot o-dot"></span>Diagramme de Gantt</div>
+          <div class="preuve-doc-item"><span class="preuve-doc-dot o-dot"></span>Note de cadrage</div>
+        </div>
+        <div class="preuve-big-footer">
+          <a class="preuve-dl-btn o-btn" href="public/preuves/bts-lna-sante.pdf" target="_blank">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/><path d="M5 19h14"/></svg>
+            Télécharger le PDF
+          </a>
+        </div>
+      </div>
+
     </div>
+
+    <!-- Expériences pro -->
+    <div class="preuves-exp reveal">
+      <div class="preuves-exp-header">
+        <span class="g-badge">Expériences</span>
+        <span>Stages et expériences professionnelles</span>
+      </div>
+      <div class="preuves-exp-grid">
+        <div class="exp-card">
+          <div class="exp-card-info">
+            <h4>Skills Office Intérim</h4>
+            <p>Contrats, DPAE, tableau de suivi recrutement</p>
+          </div>
+          <a class="exp-dl-btn" href="public/preuves/skills-office.pdf" target="_blank">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/><path d="M5 19h14"/></svg>
+            PDF
+          </a>
+        </div>
+        <div class="exp-card">
+          <div class="exp-card-info">
+            <h4>Phencia Consulting</h4>
+            <p>Facture anonymisée, lettrage, rapprochement</p>
+          </div>
+          <a class="exp-dl-btn" href="public/preuves/phencia.pdf" target="_blank">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/><path d="M5 19h14"/></svg>
+            PDF
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Note Vercel -->
+    <div class="vercel-note reveal">
+      <div class="vercel-icon">▲</div>
+      <div>
+        <div class="vercel-note-title">Déploiement sur Vercel — où déposer les fichiers</div>
+        <div class="vercel-note-text">
+          Crée un dossier <code>public/preuves/</code> à la racine de ton projet et dépose les 5 PDFs avec ces noms exacts :
+          <code>sae501-transformation-numerique.pdf</code> · <code>sae502-safe-bag.pdf</code> · <code>bts-lna-sante.pdf</code> · <code>skills-office.pdf</code> · <code>phencia.pdf</code>.
+          Vercel sert automatiquement tout ce qui est dans <code>public/</code> — aucune config supplémentaire.
+        </div>
+      </div>
+    </div>
+
   </main>
 
-  <footer>
+  <footer style="margin-top:2.5rem">
     <p>Portfolio de Moulka Lakhal · BUT GEA GPRH · Université de Toulon</p>
   </footer>
 
